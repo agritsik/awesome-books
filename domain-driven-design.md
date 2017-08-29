@@ -9,3 +9,9 @@ infrastructure code. _p74_
 - domain-driven design requires only one particular layer to exist. _p78_
 - Isolating the domain implementation is a prerequisite for domain-driven
 design. _p78_
+
+### Chapter Five. A Model Expressed in Software
+- **Associations** - In real life, there are lots of many-to-many associations, and a great number are naturally
+bidirectional. It is important to constrain relationships as much as possible. When application requirements do not call for
+traversal in both directions, adding a traversal direction reduces interdependence and simplifies
+the design.
