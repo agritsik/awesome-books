@@ -15,8 +15,11 @@ design. _p78_
 bidirectional. It is important to constrain relationships as much as possible. When application requirements do not call for
 traversal in both directions, adding a traversal direction reduces interdependence and simplifies
 the design. 
+
 > _... I guess Evans simply suggests that you should add a traversal direction only when you need it and will use it in the code just after, as opposed to prematurely adding a traversal direction "in case we need it later"._  [stackoverflow](https://stackoverflow.com/a/9806142)
 
-**Entities**. Some objects are not defined primarily by their attributes. They represent a thread of identity that runs through time and often across distinct representations... Each ENTITY must have an operational way of establishing its identity with another object... An identifying attribute must be guaranteed to be unique within the system however that system is defined—even if distributed, even when objects are archived.
+**Entities**. Some objects are not defined primarily by their attributes. They represent a thread of identity that runs through time and often across distinct representations _p92_
+
+Each ENTITY must have an operational way of establishing its identity with another object. An identifying attribute must be guaranteed to be unique within the system however that system is defined—even if distributed, even when objects are archived. _p94_
 
 TODO: https://stackoverflow.com/questions/75446/value-vs-entity-objects-domain-driven-design
