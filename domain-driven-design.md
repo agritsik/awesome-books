@@ -22,4 +22,7 @@ the design.
 
 Each ENTITY must have an operational way of establishing its identity with another object. An identifying attribute must be guaranteed to be unique within the system however that system is defined—even if distributed, even when objects are archived. _p94_
 
-TODO: https://stackoverflow.com/questions/75446/value-vs-entity-objects-domain-driven-design
+**Value Object**. An object that represents a descriptive aspect of the domain with no conceptual identity. Treat the VALUE OBJECT as immutable. Don't give it any identity. _p98_
+
+**Services**. When a significant process or transformation in the domain is not a natural responsibility of an ENTITY or VALUE OBJECT, add an operation to the model as a standalone interface declared as a SERVICE. Define the interface in terms of the language of the model and make sure the operation name is part of the UBIQUITOUS LANGUAGE. Make the SERVICE stateless. _p104_
+
