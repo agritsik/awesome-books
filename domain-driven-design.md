@@ -26,3 +26,17 @@ Each ENTITY must have an operational way of establishing its identity with anoth
 
 **Services**. When a significant process or transformation in the domain is not a natural responsibility of an ENTITY or VALUE OBJECT, add an operation to the model as a standalone interface declared as a SERVICE. Define the interface in terms of the language of the model and make sure the operation name is part of the UBIQUITOUS LANGUAGE. Make the SERVICE stateless. _p104_
 
+### Chapter Six. The Life Cycle of a Domain Object
+- AGGREGATES defines clear ownership and boundaries, this pattern is crucial to maintaining integrity in all phases of the life cycle. _p116_
+- FACTORIES - the beginning of the life cycle that creates and reconstitutes complex objects and AGGREGATES, keeping their internal structure encapsulated. _p116_
+- REPOSITORIES address the middle and end of the life cycle, providing the means of finding and retrieving persistent objects while encapsulating the immense infrastructure involved. _p116_
+- The FACTORY makes new objects; the REPOSITORY finds old objects. _p142_
+- AGGREGATES mark off the scope within which invariants have to be maintained at every stage of the life cycle. The following patterns, FACTORIES and REPOSITORIES , operate on AGGREGATES, encapsulating the complexity of specific life cycle transitions. _p125_
+
+**AGGREGATE** is a cluster of associated objects that we treat as a unit for the purpose of data changes. Each AGGREGATE has a root and a boundary. The boundary defines what is inside the AGGREGATE . The root is a single, specific ENTITY contained in the AGGREGATE. The root is the only member of the AGGREGATE that outside objects are allowed to hold references to. _p119_
+
+**FACTORY** Shift the responsibility for creating instances of complex objects and AGGREGATES to a separate object, which is still part of the domain design. Provide an interface that encapsulates all complex assembly and that does not require the client to reference the concrete classes of the objects being instantiated. Create entire AGGREGATES as a piece, enforcing their invariants. _p129_
+
+**REPOSITORY** For each type of object that needs global access, create an object that can provide the illusion of an in-memory collection of all objects of that type. Provide REPOSITORIES only for AGGREGATE roots that actually need direct access. Keep the client focused on the model, delegating all object storage and access to the REPOSITORIES. _p138_
+
+
