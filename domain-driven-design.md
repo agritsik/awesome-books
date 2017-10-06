@@ -39,4 +39,9 @@ Each ENTITY must have an operational way of establishing its identity with anoth
 
 **REPOSITORY** For each type of object that needs global access, create an object that can provide the illusion of an in-memory collection of all objects of that type. Provide REPOSITORIES only for AGGREGATE roots that actually need direct access. Keep the client focused on the model, delegating all object storage and access to the REPOSITORIES. _p138_
 
+### Chapter Seven. Using the Language: An Extended Example
+- Also, the concept of a **Customer** is not specific to Cargo. In a large system, the Customer may have roles to play with many objects. Best to keep it free of such specific responsibilities. If we need the ability to find Cargoes by Customer, this can be done through a database query
+- Repositories are prohibited from interior of Aggregates
+- By adding FACTORY METHODS to the base class (Handling Event) for each type, instance creation is abstracted, freeing the client from knowledge of the implementation. The FACTORY is responsible for knowing what class was to be instantiated and how
+it should be initialized.
 
