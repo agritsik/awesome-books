@@ -26,8 +26,7 @@
 - Baking in the assumption that everything can and will fail leads you to think differ‐ ently about how you solve problems. *p205*
 - An essential part of building a resilient system, especially when your functionality is spread over a number of different microservices that may be up or down, is the ability to safely degrade functionality. *p207*
 - The most famous of these programs is the Chaos Monkey, which during certain hours of the day will turn off random machines. Knowing that this can and will hap‐ pen in production means that the developers who create the systems really have to be prepared for it. *p211*
-- *p*
-- *p*
-- *p*
-- *p*
+- When you need your service to be resilient, you want to avoid single points of failure. *p218*
+- Partition tolerance is the system’s ability to handle the fact that communication between its parts is sometimes impossible. *p232*
+- eventually consistent; that is, we expect at some point in the future that all nodes will see the updated data, but it won’t happen at once so we have to live with the possibility that users see old data. *p233*
 
