@@ -1,1 +1,33 @@
+### Notes
+- This means avoiding integration technology that dictates what technology stacks we can use to implement our microservices.
+- Database integration makes it easy for services to share data, but does nothing about sharing behavior. *p42*
+- The business logic is not centralized into core brains, but instead pushed out more evenly to the various collaborators. Event-based collaboration is also highly decoupled. *p43*
+- I have found that systems that tend more toward the choreographed approach are more loosely coupled, and are more flexible and amenable to change. *p45*
+- Compared to database integration, RPC is certainly an improvement when we think about options for request/response collaboration. But there’s another option to con‐ sider (REST). *p49*
+- The Netflix client libraries handle service discovery, fail‐ ure modes, logging, and other aspects that aren’t actually about the nature of the ser‐ vice itself. *p60*
+- Decide whether or not you are going to insist on the client library being used, or if you’ll allow people using different technology stacks to make calls to the underlying API. *p60*
+- Be conservative in what you do, be liberal in what you accept from others. *p63*
+- When the MAJOR number increments, it means that backward incompatible changes have been made. When MINOR increments, new functionality has been added that should be backward compatible. Finally, a change to PATCH states that bug fixes have been made to existing functionality. *p64*
+- I’ve seen this approach lead to disaster when these server-side endpoints become thick layers with too much behavior. They end up getting managed by separate teams, and being another place where logic has to change whenever some functionality changes. *p71*
+- The danger with this approach is the same as with any aggregating layer; it can take on logic it shouldn’t. The business logic for the various capabilities these backends use should stay in the services themselves. These BFFs should only contain behavior spe‐ cific to delivering a particular user experience. *p72*
+- If you can test its current performance and know what good perfor‐ mance looks like, then you should feel confident in making a change. *p85*
+- continuous delivery is the approach whereby we get constant feedback on the production readiness of each and every check-in, and furthermore treat each and every check-in as a release candidate. *p107*
+- In a microservices world, where we want to ensure we can release our services inde‐ pendently of each other, it follows that as with CI, we’ll want one pipeline per service. *p108*
+- as you go up the pyramid, the test scope increases, as does our confidence that the functionality being tested works. On the other hand, the feedback cycle time increases as the tests take longer to run, and when a test fails it can be harder to determine which functionality has broken. As you go down the pyramid, in general the tests become much faster, so we get much faster feedback cycles. *p135*
+- A key driver to ensuring we can release our soft‐ ware frequently is based on the idea that we release small changes as soon as they are ready. *p142*
+- Show me a codebase where every new story results in a new end-to-end test, and I’ll show you a bloated test suite that has poor feedback cycles and huge overlaps in test coverage. *p143*
+- the smoke test suite, a collection of tests designed to be run against newly deployed software to confirm that the deployment worked. *p148*
+- With blue/green, we have two copies of our software deployed at a time, but only one version of it is receiving real requests. *p148*
+- Canary releasing differs from blue/green in that you can expect versions to coexist for longer, and you’ll often vary the amounts of traffic. *p150*
+- Each service instance should track and expose the health of its downstream dependencies, from the database to other collaborating services. *p164*
+- two-pizza teams, where no team should be so big that it could not be fed with two pizzas. *p192*
+- Having one team responsible for deploying and maintaining the application means it has an incentive to create services that are easy to deploy; that is, concerns about “throwing something over the wall” dissipate when there is no one to throw it to! *p194*
+- If you want a change to an open source project, you either ask one of the committers to make the change for you, or else you make the change yourself and send them a pull request. The core committers are still in charge of the codebase; they are the owners. *p196*
+- Baking in the assumption that everything can and will fail leads you to think differ‐ ently about how you solve problems. *p205*
+- An essential part of building a resilient system, especially when your functionality is spread over a number of different microservices that may be up or down, is the ability to safely degrade functionality. *p207*
+- The most famous of these programs is the Chaos Monkey, which during certain hours of the day will turn off random machines. Knowing that this can and will hap‐ pen in production means that the developers who create the systems really have to be prepared for it. *p211*
+- *p*
+- *p*
+- *p*
+- *p*
 
