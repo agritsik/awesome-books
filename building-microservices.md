@@ -1,5 +1,5 @@
 ### Notes
-- This means avoiding integration technology that dictates what technology stacks we can use to implement our microservices.
+- This means avoiding integration technology that dictates what technology stacks we can use to implement our microservices. *p40*
 - Database integration makes it easy for services to share data, but does nothing about sharing behavior. *p42*
 - The business logic is not centralized into core brains, but instead pushed out more evenly to the various collaborators. Event-based collaboration is also highly decoupled. *p43*
 - I have found that systems that tend more toward the choreographed approach are more loosely coupled, and are more flexible and amenable to change. *p45*
