@@ -26,7 +26,7 @@ But Enum-based approach looks like the simplest one. There is a good thread on
 ### Item 4,5,6. Best Practice
 1. Enforce noninstantiability with a *Private Constructor*. Useful for Utility Classes.
 1. Avoid creating unnecessary classes. E.g. *Flyghtweitght Pattern*, immutable objects are reusable, prefer primitives to boxed primitives etc
-1. [ ] Eliminate obsolete object reference, but this is rather an exceptional case. 
+1. Eliminate obsolete object reference, but this is rather an exceptional case. :thought_balloon: *confusing exmaple with arrays...*
 1. Avoid _Finalizers_. They are unpredictable. Finalizer thread is running at a lower priority. If needed, consider custom explicit termination method and try-finally construct. 
 
 
