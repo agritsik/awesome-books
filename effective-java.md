@@ -5,6 +5,7 @@
 1. **Inheritance** violates encapsulation. It is appropriate only in case of *is-a*.
 1. [ ] Composition - *wrapper+forwarding* class / p85
 1. 2 ways to prohibit subclassing - final and private constructor
+> :point_right: prefer composition and use inheritance only in case of *is-a*. Consider *wrapper+forwarding* pattern.
 
 ### Item 18, 19. Interfaces or Abstract classes
 1. **interfaces** are ideal for *mixins* e.g. singers are also songwriters. :thought_balloon: *hey, [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design))!*
