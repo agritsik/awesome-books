@@ -4,14 +4,14 @@
 
 
 ### Item 1. Static Factory method
-1. [ ] **Static Factory** is not the same as Factory Method Pattern. :thought_balloon: ... [stack](https://stackoverflow.com/a/9914562)
-1. **Static Factory** advantages: have names, do not require to create a new object, can return a subtype
+1. **Static Factory** is not the same as Factory Method Pattern. :thought_balloon: *"delegate object creation from constructor to static method" VS "lets a class defer instantiation to subclasses" [stack](https://stackoverflow.com/a/9914562)*
+1. **Static Factory** advantages: they have names, do not require to create a new object (flyweight), can return a subtype
 
 ### Item 2. Builder Pattern
 1. *Static Factory* method and *Telescoping Constructors* do not scale well to large numbers of params.
 1. *JavaBeans Pattern* may be in an inconsistent state.
-1. **Builder Pattern** implementation details: static member class, keep all default values, enclosing class is immutable.
 1. **Builder Pattern** should be considered if there are enough params, 4 or more.
+1. **Builder Pattern** implementation details: static member class, keep all default values, enclosing class is immutable.
 
 ### Item 3. Singleton
 1. Java <1.5 - static final member and static factory method. The latter is better, since you can change your mind later.
