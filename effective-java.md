@@ -7,8 +7,8 @@
 1. **Static Factory** advantages: have names, do not require to create a new object, can return a subtype
 
 ### 2 Builder Pattern
-1. Static Factory method and Telescoping Constructors do not scale well to large numbers of params
-1. JavaBeans Pattern may be in an inconsistent state.
+1. *Static Factory* method and *Telescoping Constructors* do not scale well to large numbers of params.
+1. *JavaBeans Pattern* may be in an inconsistent state.
 1. **Builder Pattern** implementation details: static member class, keep all default values, enclosing class is immutable.
 1. **Builder Pattern** should be considered if there are enough params, 4 or more.
 
@@ -17,10 +17,22 @@
 1. [ ] Java >=1.5 - the best way to implement Singleton using `Enum`. :thought_balloon: check lazy initialization and holder
 
 ### 4,5,6 Best Practice
-1. Enforce noninstantiability with a private constructor. Useful for Utility Classes.
-1. Avoid creating unnecessary classes - e.g. immutable objects are reusable, prefer primitives to boxed primitives.
-1. Eliminate obsolete object reference, but this is rather an exceptional case.
-1. Finalizers are unpredictable, finalizer thread is running at a lower priority. If needed, consider custom explicit termination method and try-finally construct. 
+1. Enforce noninstantiability with a *Private Constructor*. Useful for Utility Classes.
+1. Avoid creating unnecessary classes. E.g. *Flyghtweitght Pattern*, immutable objects are reusable, prefer primitives to boxed primitives etc
+[ ]. Eliminate obsolete object reference, but this is rather an exceptional case. 
+1. Avoid _Finalizers_. They are unpredictable. Finalizer thread is running at a lower priority. If needed, consider custom explicit termination method and try-finally construct. 
+
+
+# Object Methods
+1. `equals()` recipe. Use `==` and `instanceof` operators, cast the argument to the correct type, check significant fields only. 
+:warning: *use `Float.compare()` and `Double.compare` because of Nan and 0.0*
+1. `hashCode()`. You must override hashCode in every class that overrides equals. Or you can't use hash-based collections.
+1. equal objects must have equal hash codes.
+1. [ ] HashMap has an optimization that cashes the hashCode / p46
+1. `toString()`. Provide programmatic access to all fields returned by toString.
+1. `clone()` requires `implements Cloneable` and creates an object without calling a constructor. Copy all mutable objects.
+1. *Copy Constructor* and *Copy Factory* better than `clone()` method.
+1. `equals()` & `compareTo()` issue. There is no way to extend an instantiable class (abstract doesn't have this problem) and add a value component while preserving the contract. There is a workaround - *Composition* + *view method*
 
 
 # 4. Classes and Interfaces
