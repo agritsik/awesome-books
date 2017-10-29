@@ -1,6 +1,6 @@
 
 
-## 2. Creating Objects
+# 2. Creating Objects
 
 ### 1 Static Factory method
 1. [ ] **Static Factory** is not the same as Factory Method Pattern. :thought_balloon: ... [stack](https://stackoverflow.com/a/9914562)
@@ -23,7 +23,7 @@
 1. Finalizers are unpredictable, finalizer thread is running at a lower priority. If needed, consider custom explicit termination method and try-finally construct. 
 
 
-## 4. Classes and Interfaces
+# 4. Classes and Interfaces
 
 ### 16, 17 Inheritance vs Composition
 1. **Inheritance** violates encapsulation. It is appropriate only in case of *is-a*.
