@@ -17,7 +17,7 @@ Here I will try to gather the most interesting phrases from the most interesting
 | Refactoring                   | M Fowler, Kent Beck | 214 |             |
 | Test Driven Development       | Kent Beck           | 75  |             |
 |                               |                     |     |             |
-| Effective Java                | Joshua Bloch        | 233 |             |
+| Effective Java                | Joshua Bloch        | 233 | +-          |
 | Java Concurrency in Practice  | Brian Goetz         | 168 |             |
 |                               |                     |     |             |
 | Introduction to Algorithms    | Thomas H. Cormen    | 459 |             |
