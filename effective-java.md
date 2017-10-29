@@ -25,12 +25,12 @@
 
 # Object Methods
 1. `equals()` recipe. Use `==` and `instanceof` operators, cast the argument to the correct type, check significant fields only. 
-:warning: *use `Float.compare()` and `Double.compare` because of Nan and 0.0*
+:warning: *remember to use `Float.compare()` and `Double.compare` because of Nan and 0.0*
 1. `hashCode()`. You must override hashCode in every class that overrides equals. Or you can't use hash-based collections.
 1. equal objects must have equal hash codes.
 1. [ ] HashMap has an optimization that cashes the hashCode / p46
 1. `toString()`. Provide programmatic access to all fields returned by toString.
-1. `clone()` requires `implements Cloneable` and creates an object without calling a constructor. Copy all mutable objects.
+1. `clone()` requires `implements Cloneable` and creates an object without calling a constructor. :warning: remember to copy all mutable objects.
 1. *Copy Constructor* and *Copy Factory* better than `clone()` method.
 1. `equals()` & `compareTo()` issue. There is no way to extend an instantiable class (abstract doesn't have this problem) and add a value component while preserving the contract. There is a workaround - *Composition* + *view method*
 
