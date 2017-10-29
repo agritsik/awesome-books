@@ -15,7 +15,7 @@
 
 ### Item 3. Singleton
 1. Java <1.5 - static final member and static factory method. The latter is better, since you can change your mind later.
-1. [ ] Java >=1.5 - the best way to implement Singleton using `Enum`. 
+1. Java >=1.5 - the best way to implement Singleton using `Enum`. 
 
 > :point_right:  there are other well known solutions such as 
 [double check syncronization](https://en.wikipedia.org/wiki/Double-checked_locking#Usage_in_Java) and
