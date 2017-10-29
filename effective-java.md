@@ -1,5 +1,24 @@
+## 2. Creating Objects
 
-## 4 Classes and Interfaces
+
+### 1 Static Factory method
+1. _ is not the same as Factory Method. :thought_balloon: ... [stack](https://stackoverflow.com/a/9914562)
+1. advantages - _ have names, do not require to create constructor, can return a subtype
+
+### 2 Builder Pattern
+1. Static Factory method and Telescoping Constructors do not scale well to large numbers of params
+1. JavaBeans Pattern may be in an inconsistent state.
+1. _ implementation - static member class, keeps all default values, enclosing class is immutable.
+1. Consider _ if there are enough params, 4 or more.
+
+## 3 Singleton
+1. There were 2 ways before 1.5 - static final member and static factory method (better since you can change your mind later)
+1. The 3rd method is the best way to implement _ using `Enum`.
+
+## 4, 5, 6
+
+
+## 4. Classes and Interfaces
 
 ### 16, 17 Inheritance vs Composition
 1. **Inheritance** violates encapsulation. It is appropriate only in case of *is-a*.
