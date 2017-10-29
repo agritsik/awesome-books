@@ -49,7 +49,7 @@
 ### Item 16,17. Inheritance vs Composition
 1. **Inheritance** violates encapsulation. It is appropriate only in case of *is-a*.
 1. [ ] Composition - *wrapper+forwarding* class / p85
-1. There are two ways to prohibit subclassing - final classes and private constructor. The latter is the most flexible.
+1. [ ] There are two ways to prohibit subclassing - final classes and private constructor. The latter is the most flexible.
 
 > :point_right: prefer composition and use inheritance only in case of *is-a*. Consider *wrapper+forwarding* pattern.
 
