@@ -15,12 +15,18 @@
 
 ### Item 3. Singleton
 1. Java <1.5 - static final member and static factory method. The latter is better, since you can change your mind later.
-1. [ ] Java >=1.5 - the best way to implement Singleton using `Enum`. :thought_balloon: check lazy initialization and holder
+1. [ ] Java >=1.5 - the best way to implement Singleton using `Enum`. 
+
+> :point_right:  there are other well known solutions such as 
+[double check syncronization](https://en.wikipedia.org/wiki/Double-checked_locking#Usage_in_Java) and
+[on-demand holder](https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom). 
+But Enum-based approach looks like the simplest one. There is a good thread on 
+[stackoverflow](https://stackoverflow.com/questions/11165852/java-singleton-and-synchronization).
 
 ### Item 4,5,6. Best Practice
 1. Enforce noninstantiability with a *Private Constructor*. Useful for Utility Classes.
 1. Avoid creating unnecessary classes. E.g. *Flyghtweitght Pattern*, immutable objects are reusable, prefer primitives to boxed primitives etc
-[ ]. Eliminate obsolete object reference, but this is rather an exceptional case. 
+1. [ ] Eliminate obsolete object reference, but this is rather an exceptional case. 
 1. Avoid _Finalizers_. They are unpredictable. Finalizer thread is running at a lower priority. If needed, consider custom explicit termination method and try-finally construct. 
 
 
