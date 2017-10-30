@@ -73,3 +73,26 @@ But Enum-based approach looks like the simplest one. There is a good thread on
 1. [ ] if independent then static / TODO p106
 1. **nonstatic member class** - returns *collection views* and defines an *Adapter pattern* (e.g. `Map.values()`, `Map.entrySet()`, `List.iterator`)
 1. **static member class** - represents components of the object that do not require access ot an enclosing instance (e.g. `Map.Entry`)
+
+
+# Concurrency
+
+### Item 66, 67 Synchronization 
+1. **Synchronization** guarantees that no method will observe the object in inconsistent state & ensures that each thread sees the effects of all previous modificaitons. :thought_balloon: *is it happens-before?*
+1. **Synchronization** has no effect unless both read & write operations are synchronized
+1. In the absence of Synchronization, VM can transform code (aka hoisting). :thought_balloon: a good example with the program that never terminates
+1. Never call an alien method from within a sync region. Try to limit the amount of work that you do from within a sync region.
+1. [ ] reentrant lock / p268
+
+### 69,70 API
+1. Utilities in `java.util.concurrent` fall into 3 categories: Executor Framework, Collections and Synchronizers
+1. The most popular synchonizers are `CountDownLatch` and `Semaphore`. Less popular are `CyclicBarrier` and `Exchenger`
+1. The synchronized method is an implementation rather than API
+
+### 71 Lazy Initialization
+1. For Static Fields use *initialize-on-demand holder* idiom
+1. For Instance Fields use *double-check* idiom
+
+
+
+
