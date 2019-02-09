@@ -16,3 +16,5 @@
 
 > :point_right: __Why invoke the method Thread.currentThread.interrupt() in the catch block?__ - By convention, any method that exits by throwing an InterruptedException clears interrupt status when it does so. However, it's always possible that interrupt status will immediately be set again, by another thread invoking interrupt.
 [stack](https://stackoverflow.com/q/4906799/5253591), [oracle](https://docs.oracle.com/javase/tutorial/essential/concurrency/interrupt.html)
+
+> :point_right: __What does Future.cancel() do if not interrupting?__ - If it is not interrupting it will simply tell the future that is is cancelled. You can check that via isCancelled() but nothing happens if you don't check that manually. [stack](https://stackoverflow.com/a/21445268/5253591)
