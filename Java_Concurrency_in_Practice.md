@@ -18,3 +18,27 @@
 [stack](https://stackoverflow.com/q/4906799/5253591), [oracle](https://docs.oracle.com/javase/tutorial/essential/concurrency/interrupt.html)
 
 > :point_right: __What does Future.cancel() do if not interrupting?__ - If it is not interrupting it will simply tell the future that is is cancelled. You can check that via isCancelled() but nothing happens if you don't check that manually. [stack](https://stackoverflow.com/a/21445268/5253591)
+
+```java
+    public static void main(String[] args) throws InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        Future<Integer> future = executorService.submit(() -> {
+            System.out.println("start...");
+            Thread.sleep(2000);
+            System.out.println("stop...");
+            return 1;
+        });
+
+        try {
+            future.get(1000, TimeUnit.MILLISECONDS);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }finally {
+//            future.cancel(false); // you will see 'stop...'
+//            future.cancel(true); // you won't see 'stop...'
+        }
+        executorService.shutdown();
+    }
+```
