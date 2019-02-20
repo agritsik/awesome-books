@@ -19,6 +19,10 @@
 
 > :point_right: __What does Future.cancel() do if not interrupting?__ - If it is not interrupting it will simply tell the future that is is cancelled. You can check that via isCancelled() but nothing happens if you don't check that manually. [stack](https://stackoverflow.com/a/21445268/5253591)
 
+> :point_right: __Does a Future timeout kill the Thread execution__ - It does not. Why would it? Unless you tell it to.
+... `future.cancel(true);` does not stop the running underlying task, it just sets the interrupted flag to true for the running thread. It is your code that is responsible to check this flag and throw InterruptedException if it is true. [stack](https://stackoverflow.com/questions/16231508/does-a-future-timeout-kill-the-thread-execution)
+
+
 ```java
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
