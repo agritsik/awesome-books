@@ -1,5 +1,27 @@
-# Chapter 7. Cancellation and Shutdown
+# Chapter 6. Task Execution
+- Most concurrent applications are organized around the execution of tasks: abstract, discrete units of work... Ideally, tasks are independent activities: work that doesn’t depend on the state, result, or side effects of other tasks.
+- Disadvantages of unbounded thread creation: 
+    - thread creation and teardown are not free
+    - active threads consume system resources (especially memory)
+    - there is a limit on how many threads can be created.
 
+### ExecutorService
+- The primary abstraction for task execution in the Java class libraries is not `Thread`, but `Executor`. It provides a standard means of decoupling task submission from task execution, describing tasks with Runnable... `Executor` is based on the __producer-consumer pattern__
+- The value of decoupling submission from execution is that it lets you easily specify, and subsequently change without great difficulty, the __execution policy__ for a given class of tasks.
+    - In what thread will tasks be executed?
+    - In what order should tasks be executed (FIFO, LIFO, priority order)?
+    - How many tasks may execute concurrently?
+    - How many tasks may be queued pending execution?
+    - Rejection policy etc
+- The __lifecycle__ of a task executed by an `Executor` has four phases: created, submitted, started, and completed. `Future` represents the lifecycle of a task and provides methods to test whether the task has completed or been cancelled, retrieve its result, and cancel the task... Implicit in the specification of `Future` is that task lifecycle can only move forwards, not backwards—just like the `ExecutorService` lifecycle. Once a task is completed, it stays in that state forever.
+- The real performance payoff of dividing a program’s workload into tasks comes when there are a large number of independent, homogeneous tasks that can be processed concurrently.
+
+### Exploitable Parallelism
+- `CompletionService` combines the functionality of an `Executor` and a `BlockingQueue`. You can submit `Callable` tasks to it for execution and use the queue-like methods take and `poll` to retrieve completed results, packaged as `Futures`, as they become available.
+- The timed version of `invokeAll` will return when all the tasks have completed, the calling thread is interrupted, or the timeout expires. Any tasks that are not complete when the timeout expires are cancelled. On return from `invokeAll`, each task will have either completed normally or been cancelled;
+
+
+# Chapter 7. Cancellation and Shutdown
 
 ### 7.1 Task cancellation
 
