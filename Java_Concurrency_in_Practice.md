@@ -31,7 +31,9 @@
 - A good way to think about interruption is that it does not actually interrupt a running thread; it just requests that the thread interrupt itself at the next convenient opportunity.
 - The most sensible __interruption policy__ is some form of thread-level or service-level cancellation: exit as quickly as practical, cleaning up if necessary, and possibly notifying some owning entity that the thread is exiting.
 - there are two practical strategies for handling `InterruptedException`: Propagate the exception (possibly after some task-specific cleanup) OR Restore the interruption status so that code higher up on the call stack can deal with it.
-- It is important to distinguish between how tasks and threads should react to interruption.
+- It is important to distinguish between how tasks and threads should react to interruption... Tasks do not execute in threads they own; they borrow threads owned by a service such as a thread pool.
+    - most blocking library methods simply throw `InterruptedException` in response to an interrupt. They will never execute in a thread they own, so they implement the most reasonable cancellation policy for task or library code: get out of the way as quickly as possible and communicate the interruption back to the caller so that code higher up on the call stack can take further action.
+    -  If it is not simply going to propagate `InterruptedException` to its caller, it should restore the interruption status after catching InterruptedException: `Thread.currentThread().interrupt();`
 - When `Future.get` throws `InterruptedException` or `TimeoutException` and you know that the result is no longer needed by the program, cancel the task with `Future.cancel`.
 
 > :point_right: ... is an InterruptedException a sensible outcome when calling your method? [stack](https://stackoverflow.com/a/3976377)
