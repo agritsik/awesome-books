@@ -27,8 +27,8 @@
 
 - There are a number of reasons why you might want to cancel an activity: User-requested cancellation, Time-limited activities, Application events (one task finds a solution), Errors (the disk is full), Shutdown
 - A task that wants to be cancellable must have a __cancellation policy__ that specifies the “how”, “when”, and “what” of cancellation—how other code can request cancellation, when the task checks whether cancellation has been requested, and what actions the task takes in response to a cancellation request.
-- Interruption is usually the most sensible way to implement cancellation.
-- A good way to think about interruption is that it does not actually interrupt a running thread; it just requests that the thread interrupt itself at the next convenient opportunity.
+- Each thread has a boolean __interrupted status__; interrupting a thread sets its interrupted status to true... Calling interrupt does not necessarily stop the target thread from doing what it is doing; it merely delivers the message that interruption has been requested... _Interruption_ is usually the most sensible way to implement cancellation.
+- A good way to think about _interruption_ is that it does not actually interrupt a running thread; it just requests that the thread interrupt itself at the next convenient opportunity.
 - The most sensible __interruption policy__ is some form of thread-level or service-level cancellation: exit as quickly as practical, cleaning up if necessary, and possibly notifying some owning entity that the thread is exiting.
 - there are two practical strategies for handling `InterruptedException`: Propagate the exception (possibly after some task-specific cleanup) OR Restore the interruption status so that code higher up on the call stack can deal with it.
 - It is important to distinguish between how tasks and threads should react to interruption... Tasks do not execute in threads they own; they borrow threads owned by a service such as a thread pool.
