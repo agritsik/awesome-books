@@ -70,3 +70,20 @@
         executorService.shutdown();
     }
 ```
+
+
+# Chapter 8. Applying Thread Pools
+
+- Thread pools work best when tasks are homogeneous and independent. Types of tasks that require _specific execution policies_ include:
+    - Dependent tasks.
+    - Tasks that exploit thread confinement. 
+    - Responsetime-sensitive tasks
+    - Tasks that use ThreadLocal.
+- Whenever you submit to an Executor tasks that are not independent, be aware of the possibility of thread __starvation deadlock__
+
+### 8.2 Sizing thread pools
+
+- to size a thread pool properly, you need to understand your computing environment, your resource budget, and the nature of your tasks. How many processors does the deployment system have? How much memory? Do tasks perform mostly computation, I/O, or some combination? Do they require a scarce resource, such as a JDBC connection? 
+- for computeintensive tasks - `Ncpu + 1` threads 
+- for I/O or other blocking operations - estimate the ratio of waiting time (this estimate need not be precise and can be obtained through profiling or instrumentation)
+- the optimal pool size for keeping the processors at the desired utilization is: `Nthreads=Ncpu * Ucpu * (1+W/C)`
