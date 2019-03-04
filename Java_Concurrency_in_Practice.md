@@ -34,7 +34,7 @@
 - It is important to distinguish between how tasks and threads should react to interruption... Tasks do not execute in threads they own; they borrow threads owned by a service such as a thread pool.
     - most blocking library methods simply throw `InterruptedException` in response to an interrupt. They will never execute in a thread they own, so they implement the most reasonable cancellation policy for task or library code: get out of the way as quickly as possible and communicate the interruption back to the caller so that code higher up on the call stack can take further action.
     -  If it is not simply going to propagate `InterruptedException` to its caller, it should restore the interruption status after catching InterruptedException: `Thread.currentThread().interrupt();`
-- When `Future.get` throws `InterruptedException` or `TimeoutException` and you know that the result is no longer needed by the program, cancel the task with `Future.cancel`.
+- :warning: When `Future.get` throws `InterruptedException` or `TimeoutException` and you know that the result is no longer needed by the program, cancel the task with `Future.cancel`.
 
 > :point_right: ... is an InterruptedException a sensible outcome when calling your method? [stack](https://stackoverflow.com/a/3976377)
 
@@ -79,7 +79,7 @@
     - Tasks that exploit thread confinement. 
     - Responsetime-sensitive tasks
     - Tasks that use ThreadLocal.
-- Whenever you submit to an Executor tasks that are not independent, be aware of the possibility of thread __starvation deadlock__
+- :warning: Whenever you submit to an Executor tasks that are not independent, be aware of the possibility of thread __starvation deadlock__
 
 ### 8.2 Sizing thread pools
 
@@ -87,3 +87,19 @@
 - for computeintensive tasks - `Ncpu + 1` threads 
 - for I/O or other blocking operations - estimate the ratio of waiting time (this estimate need not be precise and can be obtained through profiling or instrumentation)
 - the optimal pool size for keeping the processors at the desired utilization is: `Nthreads=Ncpu * Ucpu * (1+W/C)`
+
+### 8.3. Configuring ThreadPoolExecutor
+
+- The _core pool size_, _maximum pool size_, and _keep-alive time_ govern thread creation and teardown. 
+- `ThreadPoolExecutor` allows you to supply a `BlockingQueue` to hold tasks awaiting execution. __There are three basic approaches to task queueing:__
+    - Unbounded `LinkedBlockingQueue`. Tasks will queue up if all worker threads are busy, but the queue could grow without bound if the tasks keep arriving faster than they can be executed. (default for `newFixedThreadPool` and `newSingleThreadExecutor`)
+    - A more stable resource management strategy is to use a bounded queue, such as an `ArrayBlockingQueue` or a bounded `LinkedBlockingQueue` or `PriorityBlockingQueue`. Bounded queues help prevent resource exhaustion but introduce the question of what to do with new tasks when the queue is full. With a bounded work queue, the _queue size_ and _pool size_ must be tuned together.
+    - A `SynchronousQueue` is not really a queue at all, but a mechanism for managing handoffs between threads.  Using a direct handoff is more efficient because the task can be handed right to the thread that will execute it, rather than first placing it on a queue and then having the worker thread fetch it from the queue.
+- :warning: Bounding either the thread pool or the work queue is suitable only when tasks are independent. With tasks that depend on other tasks, bounded thread pools or queues can cause thread __starvation deadlock__
+- When a bounded work queue fills up, the __saturation policy__ comes into play. Several implementations of `RejectedExecutionHandler` are provided, each implementing a different saturation policy: `AbortPolicy`, `CallerRunsPolicy`, `DiscardPolicy`, and `DiscardOldestPolicy`.
+    - the default policy, __abort__, causes execute to throw the unchecked `RejectedExecutionException`
+    - the __discard__ policy silently discards the newly submitted task if it cannot be queued for execution
+    - the __discard-oldest__ policy discards the task that would otherwise be executed next and tries to resubmit the new task. 
+    - the __caller-runs__ policy implements a form of throttling that neither discards tasks nor throws an exception, but instead tries to slow down the flow of new tasks by pushing some of the work back to the caller.  
+- :bulb: There is no predefined saturation policy to make `execute` block when the work queue is full. However, the same effect can be accomplished by using a `Semaphore` to bound the task injection rate. In such an approach, use an unbounded queue (there’s no reason to bound both the queue size and the injection rate) and set the bound on the semaphore to be equal to the pool size _plus_ the number of queued tasks you want to allow, since the semaphore is bounding the number of tasks both currently executing and awaiting execution.
+
