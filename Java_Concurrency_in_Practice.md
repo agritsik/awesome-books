@@ -1,11 +1,15 @@
 # Chapter 6. Task Execution
+
+### 6.1 Executing tasks in threads
+
 - Most concurrent applications are organized around the execution of tasks: abstract, discrete units of work... Ideally, tasks are independent activities: work that doesn’t depend on the state, result, or side effects of other tasks.
 - Disadvantages of unbounded thread creation: 
     - thread creation and teardown are not free
     - active threads consume system resources (especially memory)
     - there is a limit on how many threads can be created.
 
-### ExecutorService
+### 6.2 The Executor Service
+
 - The primary abstraction for task execution in the Java class libraries is not `Thread`, but `Executor`. It provides a standard means of decoupling task submission from task execution, describing tasks with Runnable... `Executor` is based on the __producer-consumer pattern__
 - The value of decoupling submission from execution is that it lets you easily specify, and subsequently change without great difficulty, the __execution policy__ for a given class of tasks.
     - In what thread will tasks be executed?
@@ -16,7 +20,7 @@
 - The __lifecycle__ of a task executed by an `Executor` has four phases: created, submitted, started, and completed. `Future` represents the lifecycle of a task and provides methods to test whether the task has completed or been cancelled, retrieve its result, and cancel the task... Implicit in the specification of `Future` is that task lifecycle can only move forwards, not backwards—just like the `ExecutorService` lifecycle. Once a task is completed, it stays in that state forever.
 - The real performance payoff of dividing a program’s workload into tasks comes when there are a large number of independent, homogeneous tasks that can be processed concurrently.
 
-### Exploitable Parallelism
+### 6.3 Finding exploitable parallelism
 - `CompletionService` combines the functionality of an `Executor` and a `BlockingQueue`. You can submit `Callable` tasks to it for execution and use the queue-like methods take and `poll` to retrieve completed results, packaged as `Futures`, as they become available.
 - The timed version of `invokeAll` will return when all the tasks have completed, the calling thread is interrupted, or the timeout expires. Any tasks that are not complete when the timeout expires are cancelled. On return from `invokeAll`, each task will have either completed normally or been cancelled;
 
@@ -34,7 +38,7 @@
 - It is important to distinguish between how tasks and threads should react to interruption... Tasks do not execute in threads they own; they borrow threads owned by a service such as a thread pool.
     - most blocking library methods simply throw `InterruptedException` in response to an interrupt. They will never execute in a thread they own, so they implement the most reasonable cancellation policy for task or library code: get out of the way as quickly as possible and communicate the interruption back to the caller so that code higher up on the call stack can take further action.
     -  If it is not simply going to propagate `InterruptedException` to its caller, it should restore the interruption status after catching InterruptedException: `Thread.currentThread().interrupt();`
-- :warning: When `Future.get` throws `InterruptedException` or `TimeoutException` and you know that the result is no longer needed by the program, cancel the task with `Future.cancel`.
+- :warning: When `Future.get` throws `InterruptedException` or `TimeoutException` and you know that the result is no longer needed by the program, cancel the task with `Future.cancel`. (_see Listing p147_ :page_facing_up:)
 
 > :point_right: ... is an InterruptedException a sensible outcome when calling your method? [stack](https://stackoverflow.com/a/3976377)
 
