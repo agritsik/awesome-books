@@ -78,6 +78,9 @@
 
 # Chapter 8. Applying Thread Pools
 
+
+### 8.1 Implicit couplings between tasks and execution policies
+
 - Thread pools work best when tasks are homogeneous and independent. Types of tasks that require _specific execution policies_ include:
     - Dependent tasks.
     - Tasks that exploit thread confinement. 
@@ -111,3 +114,6 @@
 ### 8.4 Extending ThreadPoolExecutor
 - `ThreadPoolExecutor` was designed for extension, providing several “hooks” for subclasses to override. The `beforeExecute` and `afterExecute` hooks are called in the thread that executes the task, and can be used for adding _logging, timing, monitoring, or statistics gathering_ (_see Listing p180_ :page_facing_up:).
 
+### Summary
+
+The `Executor` framework is a powerful and flexible framework for concurrently executing tasks. It offers a number of tuning options, such as policies for creating and tearing down threads, handling queued tasks, and what to do with excess tasks, and provides several hooks for extending its behavior. As in most powerful frameworks, however, there are combinations of settings that do not work well together; _some types of tasks require specific execution policies, and some combinations of tuning parameters may produce strange results_.
