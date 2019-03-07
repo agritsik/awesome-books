@@ -4,8 +4,12 @@
 
 
 ### Item 1. Static Factory method
-1. **Static Factory** is not the same as Factory Method Pattern. :thought_balloon: *"delegate object creation from constructor to static method" VS "lets a class defer instantiation to subclasses" [stack](https://stackoverflow.com/a/9914562)*
+1. **Static Factory** is not the same as Factory Method Pattern. 
 1. **Static Factory** advantages: they have names, do not require to create a new object (flyweight), can return a subtype
+
+> :point_right:   *"delegate object creation from constructor to static method" VS "lets a class defer instantiation to subclasses" [stack](https://stackoverflow.com/a/9914562)* 
+
+> :point_right: Factory vs Creation method vs Static creation (or factory) method  vs Simple factory vs Factory Method  vs Abstract Factory [refactoring.guru](https://refactoring.guru/design-patterns/factory-comparison)
 
 ### Item 2. Builder Pattern
 1. *Static Factory* method and *Telescoping Constructors* do not scale well to large numbers of params.
