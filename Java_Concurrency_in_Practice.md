@@ -1,3 +1,19 @@
+# Chapter 2. Thread Safety
+
+- When designing thread-safe classes, good object-oriented techniques - _encapsulation_, _immutability_, and _clear specification of invariants_ — are your best friends.
+- Stateless objects are always thread-safe.
+- The possibility of incorrect results in the presence of unlucky timing is so important in concurrent programming that it has a name: a __race condition__.
+- To ensure thread safety, __check-then-act__ operations (like lazy initialization) and __read-modify-write__ operations (like increment) __must always be atomic__
+- Every Java object can implicitly act as a lock for purposes of synchronization; these built-in locks are called __intrinsic locks__ or __monitor locks__.
+- Intrinsic locks in Java act as __mutexes__ (or mutual exclusion locks), which means that at most one thread may own the lock. When thread A attempts to acquire a lock held by thread B, A must wait, or block, until B releases it. If B never releases the lock, A waits forever.
+- When a thread requests a lock that is already held by another thread, the requesting thread blocks. But because intrinsic locks are __reentrant__, if a thread tries to acquire a lock that it already holds, the request succeeds.
+
+> :point_right: Acquiring the lock associated with an object does not prevent other threads from accessing that object—the only thing that acquiring a lock prevents any other thread from doing is acquiring that same lock. 
+
+> :point_right: The fact that every object has a built-in lock is just a convenience so that you needn’t explicitly create lock objects.
+
+> :point_right: In retrospect, this design decision was probably a bad one: not only can it be confusing, but it forces JVM implementors to make tradeoffs between object size and locking performance.
+
 # Chapter 6. Task Execution
 
 ### 6.1 Executing tasks in threads
