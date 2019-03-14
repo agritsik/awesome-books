@@ -14,7 +14,24 @@
 
 > :point_right: In retrospect, this design decision was probably a bad one: not only can it be confusing, but it forces JVM implementors to make tradeoffs between object size and locking performance.
 
+
+# Chapter 3. Sharing Objects
+
+- __There is no guarantee that operations in one thread will be performed in the order given by the program__. This may seem like a broken design, but it is meant to allow JVMs to take full advantage of the performance of modern multiprocessor hardware. For example, in the absence of synchronization, the Java Memory Model permits the compiler to reorder operations and cache values in registers, and permits CPUs to reorder operations and cache values in processor-specific caches. [What does a just-in-time (JIT) compiler do?](https://stackoverflow.com/a/95679) 
+- 64-bit numeric variables (__double and long__) are not declared volatile. The Java Memory Model requires fetch and store operations to be atomic, but for nonvolatile long and double variables, the JVM is permitted to treat a 64-bit read or write as two separate 32-bit operations.
+- The Java language also provides an alternative, weaker form of synchronization, __volatile variables__. When a field is declared volatile, the compiler and runtime are put on notice that this variable is shared and that operations on it should not be reordered with other memory operations. Volatile variables are not cached in registers or in caches where they are hidden from other processors, so a read of a volatile variable always returns the most recent write by any thread.
+- The most common use for __volatile variables__ is as a completion, interruption, or status flag. The semantics of volatile are not strong enough to make the increment operation (count++) atomic.
+
+__The most useful policies for using and sharing objects in a concurrent program are:__
+- __Thread-confined__. A thread-confined object is owned exclusively by and confined to one thread, and can be modified by its owning thread. _Stack confinement, ThreadLocal etc_
+- __Shared read-only__. A shared read-only object can be accessed concurrently by multiple threads without additional synchronization, but cannot be modified by any thread. Shared read-only objects include immutable and effectively immutable objects.
+- __Shared thread-safe__. A thread-safe object performs synchronization in-ternally, so multiple threads can freely access it through its public interface without further synchronization.
+- __Guarded__. A guarded object can be accessed only with a specific lock held. Guarded objects include those that are encapsulated within other thread-safe objects and published objects that are known to be guarded by a specific lock.
+
+
+
 # Chapter 6. Task Execution
+
 
 ### 6.1 Executing tasks in threads
 
