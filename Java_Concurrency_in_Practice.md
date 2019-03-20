@@ -34,12 +34,12 @@ __The most useful policies for using and sharing objects in a concurrent program
 # Chapter 4. Composing Objects
 
 
-- The design process for a thread-safe class should include these three basic elements:
+- __The design process for a thread-safe class should include these three basic elements__:
     - Identify the variables that form the object’s state;
     - Identify the invariants that constrain the state variables;
     - Establish a policy for managing concurrent access to the object’s state.
 - Collection classes often exhibit a form of __“split ownership”__, in which the collection owns the state of the collection infrastructure, but client code owns the objects stored in the collection.
-- Encapsulation simplifies making classes thread-safe by promoting __instance confinement__. There are many examples of confinement in the platform class libraries: the basic collection classes such as ArrayList and HashMap are not thread-safe, but the class library provides wrapper factory methods (`Collections.synchronizedList` and friends) so they can be used safely in multithreaded environments. These factories use the Decorator pattern to wrap the collection with a synchronized wrapper object; the wrapper implements each method of the appropriate interface as a synchronized method that forwards the request to the underlying collection object. 
+- Encapsulation simplifies making classes thread-safe by promoting __instance confinement__. There are many examples of confinement in the platform class libraries: the basic collection classes such as ArrayList and HashMap are not thread-safe, but the class library provides wrapper factory methods (`Collections.synchronizedList` and friends) so they can be used safely in multithreaded environments. __These factories use the Decorator pattern to wrap the collection with a synchronized wrapper object__; the wrapper implements each method of the appropriate interface as a synchronized method that forwards the request to the underlying collection object. 
 - Following the principle of _instance confinement_ to its logical conclusion leads you to the __Java monitor pattern__. An object following the Java monitor pattern encapsulates all its mutable state and guards it with the object’s own intrinsic lock.
 - If a class is composed of multiple independent thread-safe state variables and has no operations that have any invalid state transitions, then it can _delegate thread safety_ to the underlying state variables.
 
