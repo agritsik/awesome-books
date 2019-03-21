@@ -44,8 +44,16 @@ __The most useful policies for using and sharing objects in a concurrent program
 - If a class is composed of multiple independent thread-safe state variables and has no operations that have any invalid state transitions, then it can _delegate thread safety_ to the underlying state variables.
 
 
+# Chapter 5. Building Blocks
 
-# Chapter 6. Task Execution
+
+- `ConcurrentHashMap` is a hash-based `Map` like `HashMap`, but it uses an entirely different locking strategy that offers better concurrency and scalability. Instead of synchronizing every method on a common lock, restricting access to a single thread at a time, it uses a finer-grained locking mechanism called __lock striping__.
+- The __copy-on-write collections__ (e.g. `CopyOnWriteArrayList`) derive their thread safety from the fact that as long as an effectively immutable object is properly published, no further synchronization is required when accessing it. They implement mutability by creating and republishing a new copy of the collection every time it is modified. 
+- __Blocking queues__ support the __producer-consumer__ design pattern. The producer-consumer pattern also enables several performance benefits. Producers and consumers can execute concurrently; if one is I/O-bound and the other is CPU-bound, executing them concurrently yields better overall throughput than executing them sequentially.
+- Just as blocking queues lend themselves to the producer-consumer pattern, __deques__ lend themselves to a related pattern called __work stealing__. A producer-consumer design has one shared work queue for all consumers; in a work stealing design, every consumer has its own deque. If a consumer exhausts the work in its own deque, it can steal work from the tail of someone else’s deque. Work stealing can be more scalable than a traditional producer-consumer design because work- ers don’t contend for a shared work queue; most of the time they access only their own deque, reducing contention. When a worker has to access another’s queue, it does so from the tail rather than the head, further reducing contention.
+
+
+# Chapter 6. Task Execution   
 
 
 ### 6.1 Executing tasks in threads
