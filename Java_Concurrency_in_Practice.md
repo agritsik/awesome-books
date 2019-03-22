@@ -47,17 +47,31 @@ __The most useful policies for using and sharing objects in a concurrent program
 # Chapter 5. Building Blocks
 
 
+### Concurrent collections
 - `ConcurrentHashMap` is a hash-based `Map` like `HashMap`, but it uses an entirely different locking strategy that offers better concurrency and scalability. Instead of synchronizing every method on a common lock, restricting access to a single thread at a time, it uses a finer-grained locking mechanism called __lock striping__.
 - The __copy-on-write collections__ (e.g. `CopyOnWriteArrayList`) derive their thread safety from the fact that as long as an effectively immutable object is properly published, no further synchronization is required when accessing it. They implement mutability by creating and republishing a new copy of the collection every time it is modified. 
 - __Blocking queues__ support the __producer-consumer__ design pattern. The producer-consumer pattern also enables several performance benefits. Producers and consumers can execute concurrently; if one is I/O-bound and the other is CPU-bound, executing them concurrently yields better overall throughput than executing them sequentially.
 - Just as blocking queues lend themselves to the producer-consumer pattern, __deques__ lend themselves to a related pattern called __work stealing__. A producer-consumer design has one shared work queue for all consumers; in a work stealing design, every consumer has its own deque. If a consumer exhausts the work in its own deque, it can steal work from the tail of someone else’s deque. Work stealing can be more scalable than a traditional producer-consumer design because work- ers don’t contend for a shared work queue; most of the time they access only their own deque, reducing contention. When a worker has to access another’s queue, it does so from the tail rather than the head, further reducing contention.
 
 
+### Synchronizers
+- A __synchronizer__ is any object that coordinates the control flow of threads based on its state. __Blocking queues__ can act as synchronizers; other types of synchronizers include __semaphores__, __barriers__, and __latches__. 
+- A __latch__ is a synchronizer that can delay the progress of threads until it reaches its terminal state [CPJ 3.4.2]. A latch acts as a gate: until the latch reaches the terminal state the gate is closed and no thread can pass, and in the terminal state the gate opens, allowing all threads to pass. Once the latch reaches the terminal state, it cannot change state again, so it remains open forever. Latches can be used to
+    - Ensuring that a computation does not proceed until resources it needs have been initialized
+    - Ensuring that a service does not start until other services on which it depends have started
+    - Waiting until all the parties involved in an activity, for instance the players in a multi-player game, are ready to proceed.
+- __counting semaphores__ are used to control the number of activities that can access a certain resource or perform a given action at the same time [CPJ 3.4.1]. Counting semaphores can be used 
+    - to implement resource pools 
+    - to impose a bound on a collection.
+- __Barriers__ are similar to latches in that they block a group of threads until some event has occurred [CPJ 4.4.3]. The key difference is that with a barrier, all the threads must come together at a barrier point at the same time in order to proceed.
+- :+1: Latches are for waiting for events; barriers are for waiting for other threads.
+    
+
+
 # Chapter 6. Task Execution   
 
 
 ### 6.1 Executing tasks in threads
-
 - Most concurrent applications are organized around the execution of tasks: abstract, discrete units of work... Ideally, tasks are independent activities: work that doesn’t depend on the state, result, or side effects of other tasks.
 - Disadvantages of unbounded thread creation: 
     - thread creation and teardown are not free
@@ -65,7 +79,6 @@ __The most useful policies for using and sharing objects in a concurrent program
     - there is a limit on how many threads can be created.
 
 ### 6.2 The Executor Service
-
 - The primary abstraction for task execution in the Java class libraries is not `Thread`, but `Executor`. It provides a standard means of decoupling task submission from task execution, describing tasks with Runnable... `Executor` is based on the __producer-consumer pattern__
 - The value of decoupling submission from execution is that it lets you easily specify, and subsequently change without great difficulty, the __execution policy__ for a given class of tasks.
     - In what thread will tasks be executed?
@@ -85,7 +98,6 @@ __The most useful policies for using and sharing objects in a concurrent program
 
 
 ### 7.1 Task cancellation
-
 - There are a number of reasons why you might want to cancel an activity: User-requested cancellation, Time-limited activities, Application events (one task finds a solution), Errors (the disk is full), Shutdown
 - A task that wants to be cancellable must have a __cancellation policy__ that specifies the “how”, “when”, and “what” of cancellation—how other code can request cancellation, when the task checks whether cancellation has been requested, and what actions the task takes in response to a cancellation request.
 - Each thread has a boolean __interrupted status__; interrupting a thread sets its interrupted status to true... Calling interrupt does not necessarily stop the target thread from doing what it is doing; it merely delivers the message that interruption has been requested... _Interruption_ is usually the most sensible way to implement cancellation.
@@ -137,7 +149,6 @@ __The most useful policies for using and sharing objects in a concurrent program
 
 
 ### 8.1 Implicit couplings between tasks and execution policies
-
 - Thread pools work best when tasks are homogeneous and independent. Types of tasks that require _specific execution policies_ include:
     - Dependent tasks.
     - Tasks that exploit thread confinement. 
@@ -146,14 +157,12 @@ __The most useful policies for using and sharing objects in a concurrent program
 - :warning: Whenever you submit to an Executor tasks that are not independent, be aware of the possibility of thread __starvation deadlock__
 
 ### 8.2 Sizing thread pools
-
 - to size a thread pool properly, you need to understand your computing environment, your resource budget, and the nature of your tasks. How many processors does the deployment system have? How much memory? Do tasks perform mostly computation, I/O, or some combination? Do they require a scarce resource, such as a JDBC connection? 
 - for computeintensive tasks - `Ncpu + 1` threads 
 - for I/O or other blocking operations - estimate the ratio of waiting time (this estimate need not be precise and can be obtained through profiling or instrumentation)
 - the optimal pool size for keeping the processors at the desired utilization is: `Nthreads=Ncpu * Ucpu * (1+W/C)`
 
 ### 8.3. Configuring ThreadPoolExecutor
-
 - The _core pool size_, _maximum pool size_, and _keep-alive time_ govern thread creation and teardown. 
 - `ThreadPoolExecutor` allows you to supply a `BlockingQueue` to hold tasks awaiting execution. __There are three basic approaches to task queueing:__
     - Unbounded `LinkedBlockingQueue`. Tasks will queue up if all worker threads are busy, but the queue could grow without bound if the tasks keep arriving faster than they can be executed. (default for `newFixedThreadPool` and `newSingleThreadExecutor`)
@@ -172,5 +181,4 @@ __The most useful policies for using and sharing objects in a concurrent program
 - `ThreadPoolExecutor` was designed for extension, providing several “hooks” for subclasses to override. The `beforeExecute` and `afterExecute` hooks are called in the thread that executes the task, and can be used for adding _logging, timing, monitoring, or statistics gathering_ (_see Listing p180_ :page_facing_up:).
 
 ### Summary
-
 The `Executor` framework is a powerful and flexible framework for concurrently executing tasks. It offers a number of tuning options, such as policies for creating and tearing down threads, handling queued tasks, and what to do with excess tasks, and provides several hooks for extending its behavior. As in most powerful frameworks, however, there are combinations of settings that do not work well together; _some types of tasks require specific execution policies, and some combinations of tuning parameters may produce strange results_.
