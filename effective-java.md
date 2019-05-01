@@ -78,6 +78,9 @@ But Enum-based approach looks like the simplest one. There is a good thread on
 1. **nonstatic member class** - returns *collection views* and defines an *Adapter pattern* (e.g. `Map.values()`, `Map.entrySet()`, `List.iterator`)
 1. **static member class** - represents components of the object that do not require access ot an enclosing instance (e.g. `Map.Entry`)
 
+### Item24: Eliminate unchecked warnings
+- always use the `SuppressWarnings` annotation on the smallest scope possible
+
 ### Item25: Prefer lists to arrays
 - Arrays are covariant & reified (know element types at run-time)
 - Generics are invariant & implemented by erasure (know element types at compile-time)
