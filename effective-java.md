@@ -78,17 +78,6 @@ But Enum-based approach looks like the simplest one. There is a good thread on
 1. **nonstatic member class** - returns *collection views* and defines an *Adapter pattern* (e.g. `Map.values()`, `Map.entrySet()`, `List.iterator`)
 1. **static member class** - represents components of the object that do not require access ot an enclosing instance (e.g. `Map.Entry`)
 
-
-# Generics
-
-
-### Item 23: Don’t use raw types in new code
-- you lose type safety if you use a raw type like List, but not if you use a parameterized type like List<Object>.
-- unbounded wildcard types `<?>`.
-
-### Item24: Eliminate unchecked warnings
-- always use the `SuppressWarnings` annotation on the smallest scope possible
-
 ### Item25: Prefer lists to arrays
 - Arrays are covariant & reified (know element types at run-time)
 - Generics are invariant & implemented by erasure (know element types at compile-time)
@@ -116,6 +105,7 @@ But Enum-based approach looks like the simplest one. There is a good thread on
 
 
 # Concurrency
+
 
 ### Item 66, 67 Synchronization 
 1. **Synchronization** guarantees that no method will observe the object in inconsistent state & ensures that each thread sees the effects of all previous modificaitons. :thought_balloon: *is it happens-before?*
