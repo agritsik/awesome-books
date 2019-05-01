@@ -79,6 +79,42 @@ But Enum-based approach looks like the simplest one. There is a good thread on
 1. **static member class** - represents components of the object that do not require access ot an enclosing instance (e.g. `Map.Entry`)
 
 
+# Generics
+
+
+### Item 23: Don’t use raw types in new code
+- you lose type safety if you use a raw type like List, but not if you use a parameterized type like List<Object>.
+- unbounded wildcard types `<?>`.
+
+### Item24: Eliminate unchecked warnings
+- always use the `SuppressWarnings` annotation on the smallest scope possible
+
+### Item25: Prefer lists to arrays
+- Arrays are covariant & reified (know element types at run-time)
+- Generics are invariant & implemented by erasure (know element types at compile-time)
+
+### Item26: Favor generic types
+- the first solution - keep data in E[] and cast creation. Is used more commonly.
+- the second solution - keep data in Object[] and cast elements retrieval (e.g. `ArrayList` and `return (E) elementData[index];`).
+- bounded type parameter `class DelayQueue<E extends Delayed> implements BlockingQueue<E>;`
+
+### Item27: Favor generic methods
+- static utility methods are particularly good candidates for generification
+- write a _generic static factory method_ corresponding to each constructor that you want to use.
+- ? generic singleton factory
+- _recursive type bound_ when a type parameter is bounded by some expression involving that type parameter itself
+`public static <T extends Comparable<T>> T max(List<T> list) {...}`
+
+### Item28: Use bounded wildcards to increase API flexibility
+- ... parameterized types are invariant. In other words, for any two distinct types Type1 and Type2, List<Type1> is neither a subtype nor a supertype of List<Type2>
+- PECS stands for producer-extends, consumer-super.
+- do not use wildcard types as return types
+- if a type parameter appears only once in a method declaration, replace it with a wildcard.
+
+### Item29: Consider typesafe heterogeneous containers
+- ... In all of these uses, it is the container that is parameterized. This limits you to a fixed number of type parameters per container.
+
+
 # Concurrency
 
 ### Item 66, 67 Synchronization 
