@@ -79,6 +79,18 @@ But Enum-based approach looks like the simplest one. There is a good thread on
 1. **static member class** - represents components of the object that do not require access ot an enclosing instance (e.g. `Map.Entry`)
 
 
+# Exceptions
+
+
+- exceptions are, as their name implies, to be used only for exceptional conditions; they should never be used for ordinary control flow. 
+- A well-designed API must not force its clients to use exceptions for ordinary control flow (e.g. `Iterator`)
+- The Java programming language provides __three kinds of throwables__: checked exceptions, runtime exceptions, and errors:
+    - use _checked exceptions_ for conditions from which the caller can reasonably be expected to recover. 
+    - use _runtime exceptions_ to indicate programming errors. The great majority of runtime exceptions indicate precondition violations. A precondition violation is simply a failure by the client of an API.
+    - while the Java Language Specification does not require it, there is a strong convention that _errors_ are reserved for use by the JVM to indicate resource deficiencies, invariant failures, or other conditions that make it impossible to continue execution.
+- To summarize, use checked exceptions for recoverable conditions and runtime exceptions for programming errors. Of course
+
+
 # Generics
 
 
