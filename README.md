@@ -2,24 +2,26 @@
 Here I will try to gather the most interesting phrases from the most interesting books
 
 
-## Architecture
-| Name                          | Author              | Rev | Comment     |
-|-------------------------------|---------------------|-----|-------------|
-| Building Microservices        | Sam Newman          | 142 | +           |
-| Release It                    | Michael Nygard      | 65  | +-          |             
-| Domain-Driven Design          | Eric Evans          | 102 | +-          |
+## System Design 
+| Name                                                          | Author              | Rev | Status          |
+|---------------------------------------------------------------|---------------------|-----|-----------------|
+| Design Data Intensive Apps                                    | M.Kleppman          | 533 | :nerd_face:     |
+| [Building Microservices](building-microservices.md)           | Sam Newman          | 352 | :sunglasses:    |
+| [Release It](release-it.md)                                   | Michael Nygard      | 75  | :nerd_face:     |             
+
 
 ## Programming
-| Name                          | Author              | Rev | Comment     |
-|-------------------------------|---------------------|-----|-------------|
-| Effective Java                | Joshua Bloch        | 233 | +-          |
-| Java Concurrency in Practice  | Brian Goetz         | 168 | +-          |
-| Design Patterns               | GoF                 | 484 |             |
-| Code Complete                 | Steve McConnell     | 465 |             |
-| Clean Code                    | Robert C Martin     | 367 |             |
-| The Pragmatic Programmer      | Andrew Hunt         | 349 |             |
-| Refactoring                   | M Fowler, Kent Beck | 214 |             |
-| Test Driven Development       | Kent Beck           | 75  |             |
+| Name                                                          | Author              | Rev | Status      |
+|---------------------------------------------------------------|---------------------|-----|-------------|
+| [Effective Java](effective-java.md)                           | Joshua Bloch        | 233 | :nerd_face: |
+| [Java Concurrency in Practice](concurrency-in-practice.md)    | Brian Goetz         | 168 | :nerd_face: |
+| Design Patterns                                               | GoF                 | 484 |             |
+| Code Complete                                                 | Steve McConnell     | 465 |             |
+| Clean Code                                                    | Robert C Martin     | 367 |             |
+| The Pragmatic Programmer                                      | Andrew Hunt         | 349 |             |
+| Refactoring                                                   | M Fowler, Kent Beck | 214 |             |
+| Test Driven Development                                       | Kent Beck           | 75  |             |
+| Domain-Driven Design                                          | Eric Evans          | 102 | :nerd_face: |
 
 ## Linux
 
