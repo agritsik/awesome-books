@@ -1,5 +1,3 @@
-# Book Reviews
-Here I will try to gather the most interesting phrases from the most interesting books
 
 
 ## System Design 
@@ -21,7 +19,7 @@ Here I will try to gather the most interesting phrases from the most interesting
 | The Pragmatic Programmer                                      | Andrew Hunt         | 349 |             |
 | Refactoring                                                   | M Fowler, Kent Beck | 214 |             |
 | Test Driven Development                                       | Kent Beck           | 75  |             |
-| Domain-Driven Design                                          | Eric Evans          | 102 | :nerd_face: |
+| [Domain-Driven Design](domain-driven-design.md)               | Eric Evans          | 102 | :nerd_face: |
 
 ## Linux
 
