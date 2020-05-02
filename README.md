@@ -13,7 +13,7 @@ Here I will try to gather the most interesting phrases from the most interesting
 | Name                          | Author              | Rev | Comment     |
 |-------------------------------|---------------------|-----|-------------|
 | Effective Java                | Joshua Bloch        | 233 | +-          |
-| Java Concurrency in Practice  | Brian Goetz         | 168 |             |
+| Java Concurrency in Practice  | Brian Goetz         | 168 | +-          |
 | Design Patterns               | GoF                 | 484 |             |
 | Code Complete                 | Steve McConnell     | 465 |             |
 | Clean Code                    | Robert C Martin     | 367 |             |
