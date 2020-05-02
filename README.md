@@ -27,6 +27,6 @@ Here I will try to gather the most interesting phrases from the most interesting
 
 | Name                             | Author              | Rev | Comment             |
 |----------------------------------|---------------------|-----|---------------------|
-| How Linux Works                  | Brian Ward          | 194 | How the Linux Kernel Boots and Understanding your Network |
+| How Linux Works                  | Brian Ward          | 194 | 5. How the Linux Kernel Boots & 9. Understanding your Network 
 | Modern Operating Systems         | Andrew S Tanenbaum  | 40  | Scheduling in Linux |
 | The Linux Programming Interface  | Michael Kerrisk     | 147 | SOCKETS: FUNDAMENTALS OF TCP/IP NETWORKS |
