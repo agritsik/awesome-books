@@ -3,7 +3,7 @@
 ## System Design 
 | Name                                                          | Author              | Rev | Status          |
 |---------------------------------------------------------------|---------------------|-----|-----------------|
-| Design Data Intensive Apps                                    | M.Kleppman          | 533 | :nerd_face:     |
+| [Design Data Intensive Apps](DDIA.md)                         | M.Kleppman          | 533 | :nerd_face:     |
 | [Building Microservices](building-microservices.md)           | Sam Newman          | 352 | :sunglasses:    |
 | [Release It](release-it.md)                                   | Michael Nygard      | 75  | :nerd_face:     |             
 
